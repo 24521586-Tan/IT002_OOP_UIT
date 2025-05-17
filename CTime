@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class CTime {
+private:
+    int hour, minute, second;
+
+public:
+    CTime();
+    CTime(int hour, int minute, int second);
+
+    friend istream& operator>>(istream& is, CTime& ps);
+    friend ostream& operator<<(ostream& os, CTime ps);
+
+    CTime operator + (int);
+    CTime operator - (int);
+};
+
+
+CTime::CTime() : hour(0), minute(0), second(0) {}
+
+CTime::CTime(int hour, int minute, int second) {
+    this->hour = hour;
+    this->minute = minute;
+    this->second = second;
+}
+
+istream& operator>>(istream& is, CTime& t) {
+    cout << "Nhap gio: "; cin >> t.hour;
+    cout << "Nhap phut: "; cin >> t.minute;
+    cout << "Nhap giay: "; cin >> t.second;
+    return is;
+}
+
+ostream& operator<<(ostream& os, CTime t) {
+    cout << "Thoi gian la: " << endl;
+    os << t.hour << ":" << t.minute << ":" << t.second << endl;
+    return os;
+}
+
+CTime CTime::operator+(int k){
+    int totalSecond = hour*3600 + minute*60 + second;
+    totalSecond+=k;
+    hour = totalSecond/3600;
+    minute = (totalSecond - hour*3600)/60;
+    second = totalSecond - hour*3600 - minute*60;
+
+    return *this;
+}
+
+CTime CTime::operator-(int k){
+    int totalSecond = hour*3600 + minute*60 + second;
+    totalSecond-=k;
+    hour = totalSecond/3600;
+    minute = (totalSecond - hour*3600)/60;
+    second = totalSecond - hour*3600 - minute*60;
+
+    return *this;
+}
+
+int main() {
+    CTime t;
+    cin >> t;
+    cout << t;
+    cout << "Thoi gian sau khi thay doi la: " << t-289;
+
+    return 0;
+}
